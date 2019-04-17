@@ -175,13 +175,13 @@ class Repository:
 
 
 def main():
-    path_dir = "/Users/sachinmcreddy/Desktop/pyhton/hw10"
+    path_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)),'hw10')
     stevens = Repository(path_dir)
 
 
 class RepositoryTest(unittest.TestCase):
     def test_stevens(self):
-        path_dir = "/Users/sachinmcreddy/Desktop/pyhton/hw10"
+        path_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)),'hw10')
         stevens = Repository(path_dir)
         student = [["10103", "Baldwin, C", "SFEN", ['CS 501', 'SSW 564', 'SSW 567', 'SSW 687'], {'SSW 555', 'SSW 540'}, None],
                         ["10115", "Wyatt, X", "SFEN", ['CS 545', 'SSW 564', 'SSW 567', 'SSW 687'], {'SSW 555', 'SSW 540'}, None],
