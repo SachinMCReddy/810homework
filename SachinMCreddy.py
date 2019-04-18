@@ -3,6 +3,7 @@ import os
 from prettytable import PrettyTable
 from collections import defaultdict
 import unittest
+import sqlite3
 
 
 class Student:
@@ -164,15 +165,19 @@ class Repository:
         print("student pretty table")
         print(pt)
 
-    def instructor_table(self):
-        pt = PrettyTable(
-            field_names=['cwid', 'name', 'dept', 'course', 'students'])
-        for Instructor in self._instructors.values():
-            for course in Instructor.pt_row():
-                pt.add_row(course)
+    def instructor_pt(self):
+        DB_FILE = "/Users/sachinmcreddy/Documents/HW11.db"
+        db = sqlite3.connect(DB_FILE)
+
+        pt = PrettyTable(field_names=['cwid', 'name', 'dept', 'course', 'students'])
+        query = """select CWID, Name, Dept, Course, count(*) as students from HW11_instructors as i join HW11_grades
+                    on Instructor_CWID = CWID
+                    group by CWID, Name, Dept, Course"""
+       
+        for row in db.execute(query):
+            pt.add_row(row)
         print("instructor pretty table")
         print(pt)
-
 
 def main():
     path_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)),'hw10')
